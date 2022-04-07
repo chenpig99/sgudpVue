@@ -27,7 +27,7 @@ watch: {},
 methods: {
   //退出函数
  cancellation() {
-  localStorage.removeItem("token");
+  localStorage.removeItem("Authorization");
   localStorage.removeItem("currentUser_name");
   this.$router.push('/login');
 },
