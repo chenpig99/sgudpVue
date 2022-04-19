@@ -72,9 +72,9 @@
   </div>
 </template>
 <script>
-import axios from "../axios";
-
+import axios from '../axios';
 export default {
+
   // retuendata:{
   //     data:'',
   //     code:'',
@@ -106,9 +106,9 @@ export default {
   },
   methods: {
     doLogin() {
-      this.$router.resolve({
-        path: "/home",
-      });
+      // this.$router.resolve({
+      //   path: "/home",
+      // });
 
       //一点击登录按钮，这个方法就会执行
       const name = this.user.userName;
@@ -120,14 +120,16 @@ export default {
           "Content-Type": "application/JSON",
         },
       }).then((res) => {
-        if (res.data.data == 0) {
-          alert("登录失败!密码或用户名错误!");
-          console.log(res.headers);
-        } else {
           localStorage.setItem("currentUser_name", name);
           localStorage.setItem("Authorization", res.headers.authorization);
-          this.$router.push({ path: "/home" });
-        }
+          this.$router.push({ path: "/home" ,params:{namek:name}});
+      }).catch(error=>{
+        this.$alert(error.response.data.msg, '错误', {
+          confirmButtonText: '确定',
+          callback: action => {
+            
+          }
+        });
       });
     },
   },

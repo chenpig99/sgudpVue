@@ -21,7 +21,8 @@
             <i class="el-icon-user"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>用户名：{user.userName}
+            <el-dropdown-item>用户名：
+            
                <!-- <p v-else> -->
             <!-- <a>{{ userInfo.name }}</a> --></el-dropdown-item>
             <el-dropdown-item>账号：</el-dropdown-item>
@@ -37,6 +38,7 @@
 </template>
 
 <script>
+import axios from '../../axios';
 // import {mapState} from 'vuex';
 export default {
   name: "Header",
@@ -45,13 +47,19 @@ export default {
       // in component:
       //收集表单数据---关键字的
       keyword: "",
+      userName: localStorage.getItem("currentUser_name"),
     };
   },
   methods: {
     logout() {
-      localStorage.removeItem("Authorization");
+      axios({
+          url:"/logout",
+          method: "Get",
+      }).then(res=>{
+          localStorage.removeItem("Authorization");
       localStorage.removeItem("currentUser_name");
       this.$router.push("/login");
+      })
     },
   },
 };

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../components/login.vue'
-import Home from '../pages/Home'
+import Home from '../pages/Home/home'
 import Check from '../pages/goods management/check'
 import Modify from '../pages/goods management/modify'
 import Remove from '../pages/goods management/remove'
@@ -68,7 +68,7 @@ const routes = [
 // 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
 
 const router = new VueRouter({
-  mode: 'history',//解决js报错
+  mode: 'hash',//解决js报错
   routes
 });
 router.beforeEach((to, from, next) => {

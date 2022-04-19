@@ -8,12 +8,13 @@ import axios from '../src/axios';
 import qs from 'qs';
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
-Vue.prototype.$qs=qs;
+Vue.prototype.$qs = qs;
+
 
 
 new Vue({
   el: '#app',
   router,
-  component:App,
+  component: App,
   render: h => h(App)
 }).$mount('#app');
