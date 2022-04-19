@@ -27,11 +27,11 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage1"
+        :current-page="page.currentPage"
         :page-sizes="[10, 20, 30, 40]"
         :page-size="10"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400"
+        :total="page.total"
       >
       </el-pagination>
     </div>
@@ -59,9 +59,10 @@ export default {
           currentPage:1,
         //每页条数
           pageSize:10,
+          total:'',
 
       },
-      currentPage1: 1,
+
       currentPage2: 2,
       currentPage3: 3,
       currentPage4: 4,
@@ -71,17 +72,29 @@ export default {
     ;
   },
   methods: {
+    //条数选择
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      this.page.pageSize=val;
+      this.page.currentPage=1;
+      axios({
+        url:'/dp/goods/query',
+        method:"post",
+        data:JSON.stringify(this.page)
+      }).then(res=>{
+        this.tableData=res.data.data;
+      })
     },
     handleCurrentChange(val) {
       this.page.currentPage=val;
       console.log(`当前页: ${val}`);
       axios({
          url:'/dp/goods/query',
-         methos:"GET",
+         method:"post",
          //需要想办法传入page对象
          data:JSON.stringify(this.page),
+         headers: {
+          "Content-Type": "application/JSON",
+        },
       }).then(res=>{
         this.tableData=res.data.data;
       }).catch(err=>{
@@ -89,12 +102,16 @@ export default {
       })
     },
   },
-  beforeCreate()  {
+  created()  {
+    console.log(this.page)
     axios({
         url:'/dp/goods/query',
-        method:"GET",
+        method:"post",
             //需要想办法传入page对象
-        data:1,
+         data:JSON.stringify(this.page),
+        headers: {
+          "Content-Type": "application/JSON",
+        },
 
     }).then(res=>{
         
