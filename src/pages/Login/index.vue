@@ -3,11 +3,7 @@
     <div class="top">
       <div class="left">
         <div class="logoArea">
-          <img
-            src="./images/logo.png"
-            style="width: 200px; height: 180px; margin: 100px 20px 10px 180px"
-            alt=""
-          />
+          <img src="./images/logo.png" alt="" />
         </div>
         <div class="login">
           <!--flex弹性盒子模型，justify-content：主抽 -->
@@ -72,7 +68,7 @@
   </div>
 </template>
 <script>
-import axios from "../axios";
+import axios from "./axios";
 
 export default {
   // retuendata:{
@@ -141,20 +137,25 @@ export default {
   margin-left: 150px;
   width: 1200px;
   height: 630px;
-
-  .left {
-    .logoArea {
-      .logo {
-        width: 300px;
-        height: 300px;
+}
+.left {
+  .logoArea {
+    .logo {
+      img {
+        width: 200px;
+        height: 180px;
+        margin: 100px 0px 10px 180px;
       }
     }
   }
-  .right {
-    display: flex;
-    margin: 100px 0px 0px 200px;
-    width: 460px;
-    height: 400px;
-  }
+  width: 300px;
+  height: 300px;
+}
+.right {
+  display: flex;
+  margin: 100px 100px 0px 400px;
+  width: 460px;
+  height: 400px;
+  background-color: skyblue;
 }
 </style>
