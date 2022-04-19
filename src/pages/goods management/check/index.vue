@@ -75,16 +75,17 @@ export default {
       console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
-      const pagek=this.page;
+      this.page.currentPage=val;
       console.log(`当前页: ${val}`);
-      console.log(this.currentPage5),
       axios({
          url:'/dp/goods/query',
          methos:"GET",
          //需要想办法传入page对象
-         data:JSON.stringify(),
+         data:JSON.stringify(this.page),
       }).then(res=>{
         this.tableData=res.data.data;
+      }).catch(err=>{
+         console.log(JSON.stringify(this.page));
       })
     },
   },
