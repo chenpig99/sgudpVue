@@ -12,37 +12,38 @@
       </el-table-column>
       <el-table-column prop="number" label="货物数量" width="120">
       </el-table-column>
-      <el-table-column prop="location_id" label="库区" width="120">
+      <el-table-column prop="locationId" label="库区" width="120">
       </el-table-column>
-      <el-table-column prop="warehouse entry time" label="入库时间" width="120">
+      <el-table-column prop="warehouseEntryTime" label="入库时间" width="120">
       </el-table-column>
-      <el-table-column prop="deadline_time" label="存放截止时间" width="120">
+      <el-table-column prop="deadlineTime" label="存放截止时间" width="120">
       </el-table-column>
-      <el-table-column prop="warning_time" label="距过期时间" width="120">
+      <el-table-column prop="warningTime" label="距过期时间" width="120">
       </el-table-column>
       <el-table-column prop="status" label="货物状态" width="120">
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="120">
-        <template slot-scope="scope">
-          <el-button
-            @click.native.prevent="deleteRow(scope.$index, tableData)"
-            type="text"
-            size="small"
-          >
-            修改
-          </el-button>
-        </template>
-      </el-table-column>
+       <el-table-column fixed="right" label="操作" width="120">
+        <template slot-scope="scope">
+          <el-button
+            @click.native.prevent="deleteRow(scope.$index, tableData)"
+            type="text"
+            size="small"
+          >
+            修改
+          </el-button>
+        </template>
+      </el-table-column>
+
     </el-table>
     <div class="block">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="currentPage4"
-        :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
+        :current-page="page.currentPage"
+        :page-sizes="[10, 20, 30, 40]"
+        :page-size=this.page.pageSize
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400"
+        :total="this.page.total"
       >
       </el-pagination>
     </div>
@@ -50,6 +51,7 @@
 </template>
 
 <script>
+import axios from '../../../axios'
 export default {
   methods: {
     deleteRow(index, rows) {
@@ -57,26 +59,88 @@ export default {
     },
   },
   data() {
+  
     return {
       tableData: [
         {
           //导入数据
         },
       ],
+      page:{
+        //当前页码
+          currentPage:1,
+        //每页条数
+          pageSize:10,
+          total:'',
 
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4,
-    };
+      },
+
+       
+    }
+    
+    ;
   },
   methods: {
+    //条数选择
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      this.page.pageSize=val;
+      this.page.currentPage=1;
+      axios({
+        url:'/dp/goods/query',
+        method:"post",
+        data:JSON.stringify(this.page)
+      }).then(res=>{
+        this.tableData=res.data.data.records;
+        this.page.total=parseInt(res.data.data.total);
+      }).catch(err=>{
+            this.$alert(err.response.data.msg, "请联系管理员", {
+              confirmButtonText: "确定",
+              callback: action => {
+                
+              }
+            });
+      })
     },
     handleCurrentChange(val) {
+      this.page.currentPage=val;
       console.log(`当前页: ${val}`);
+      axios({
+         url:'/dp/goods/query',
+         method:"post",
+         //需要想办法传入page对象
+         data:JSON.stringify(this.page),
+      }).then(res=>{
+        this.tableData=res.data.data.records; 
+      }).catch(err=>{
+         this.$alert(err.response.data.msg, "请联系管理员", {
+           confirmButtonText: "确定",
+           callback: action => {
+             
+           }
+         });
+      })
     },
+  },
+  created()  {
+    console.log(this.page)
+    axios({
+        url:'/dp/goods/query',
+        method:"post",
+            //需要想办法传入page对象
+         data:JSON.stringify(this.page),
+    }).then(res=>{
+        this.tableData=res.data.data.records;
+        this.page.total=parseInt(res.data.data.total);
+        console.log(this.page.total)
+    }).catch(err=>{
+      console.log(err.response)
+        this.$alert(err.response.data.msg, "请联系管理员", {
+          confirmButtonText: '确定',
+          callback: action => {
+            
+          }
+        });
+    })
   },
 };
 </script>
