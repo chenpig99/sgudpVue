@@ -29,7 +29,7 @@
             type="text"
             size="small"
           >
-            移除
+            删除
           </el-button>
         </template>
       </el-table-column>
