@@ -22,27 +22,27 @@
       </el-table-column>
       <el-table-column prop="status" label="货物状态" width="120">
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="120">
-        <template slot-scope="scope">
-          <el-button
-            @click.native.prevent="deleteRow(scope.$index, tableData)"
-            type="text"
-            size="small"
-          >
-            移除
-          </el-button>
-        </template>
-      </el-table-column>
+       <el-table-column fixed="right" label="操作" width="120">
+        <template slot-scope="scope">
+          <el-button
+            @click.native.prevent="deleteRow(scope.$index, tableData)"
+            type="text"
+            size="small"
+          >
+            移除
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <div class="block">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page=yhis.page.currentPage
-        :page-sizes="[100, 200, 300, 400]"
+        :current-page="page.currentPage"
+        :page-sizes="[10, 20, 30, 40]"
         :page-size=this.page.pageSize
         layout="total, sizes, prev, pager, next, jumper"
-        :total=this.page.total
+        :total="this.page.total"
       >
       </el-pagination>
     </div>
@@ -58,6 +58,7 @@ export default {
     },
   },
   data() {
+  
     return {
       tableData: [
         {
@@ -72,25 +73,72 @@ export default {
           total:'',
 
       },
-    };
+
+       
+    }
+    
+    ;
   },
   methods: {
+    //条数选择
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      this.page.pageSize=val;
+      this.page.currentPage=1;
+      axios({
+        url:'/dp/goods/query',
+        method:"post",
+        data:JSON.stringify(this.page)
+      }).then(res=>{
+        this.tableData=res.data.data.records;
+        this.page.total=parseInt(res.data.data.total);
+      }).catch(err=>{
+            this.$alert(err.response.data.msg, "请联系管理员", {
+              confirmButtonText: "确定",
+              callback: action => {
+                
+              }
+            });
+      })
     },
     handleCurrentChange(val) {
+      this.page.currentPage=val;
       console.log(`当前页: ${val}`);
+      axios({
+         url:'/dp/goods/query',
+         method:"post",
+         //需要想办法传入page对象
+         data:JSON.stringify(this.page),
+      }).then(res=>{
+        this.tableData=res.data.data.records; 
+      }).catch(err=>{
+         this.$alert(err.response.data.msg, "请联系管理员", {
+           confirmButtonText: "确定",
+           callback: action => {
+             
+           }
+         });
+      })
     },
   },
-  created() {
+  created()  {
+    console.log(this.page)
     axios({
-      url:'/dp/goods/query',
-      method:"post",
-      data:JSON.stringify(this.page),
+        url:'/dp/goods/query',
+        method:"post",
+            //需要想办法传入page对象
+         data:JSON.stringify(this.page),
     }).then(res=>{
-       this.tableData=res.data.data.records; 
+        this.tableData=res.data.data.records;
+        this.page.total=parseInt(res.data.data.total);
+        console.log(this.page.total)
     }).catch(err=>{
-
+      console.log(err.response)
+        this.$alert(err.response.data.msg, "请联系管理员", {
+          confirmButtonText: '确定',
+          callback: action => {
+            
+          }
+        });
     })
   },
 };
