@@ -31,7 +31,7 @@
         :page-sizes="[10, 20, 30, 40]"
         :page-size="10"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="page.total"
+        :total="this.page.total"
       >
       </el-pagination>
     </div>
@@ -59,7 +59,7 @@ export default {
           currentPage:1,
         //每页条数
           pageSize:10,
-          total:'',
+          total:99,
 
       },
 
@@ -81,7 +81,8 @@ export default {
         method:"post",
         data:JSON.stringify(this.page)
       }).then(res=>{
-        this.tableData=res.data.data;
+        this.tableData=res.data.data.records;
+        this.page.total=parseInt(res.data.data.total);
       })
     },
     handleCurrentChange(val) {
@@ -96,7 +97,7 @@ export default {
           "Content-Type": "application/JSON",
         },
       }).then(res=>{
-        this.tableData=res.data.data;
+        this.tableData=res.data.data.records; 
       }).catch(err=>{
          console.log(JSON.stringify(this.page));
       })
@@ -114,9 +115,9 @@ export default {
         },
 
     }).then(res=>{
-        
-        this.tableData=res.data.data;
-        console.log(this.tableData)
+        this.tableData=res.data.data.records;
+        this.page.total=parseInt(res.data.data.total);
+        console.log(this.page.total)
     }).catch(err=>{
 
     })
