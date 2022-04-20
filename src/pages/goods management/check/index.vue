@@ -28,8 +28,8 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="page.currentPage"
-        :page-sizes="[10, 20, 30, 40]"
-        :page-size="10"
+        :page-sizes="[10, 20, 30, 40,50]"
+        :page-size=this.page.pageSize
         layout="total, sizes, prev, pager, next, jumper"
         :total="this.page.total"
       >
@@ -59,14 +59,9 @@ export default {
           currentPage:1,
         //每页条数
           pageSize:10,
-          total:99,
-
+        //数据总条数
+          total:'',
       },
-
-      currentPage2: 2,
-      currentPage3: 3,
-      currentPage4: 4,
-       
     }
     
     ;
@@ -74,55 +69,58 @@ export default {
   methods: {
     //条数选择
     handleSizeChange(val) {
+      //设置每页条数
       this.page.pageSize=val;
+      //选中后,默认显示第一页
       this.page.currentPage=1;
       axios({
         url:'/dp/goods/query',
         method:"post",
+        //上传page参数,让后端进行分页
         data:JSON.stringify(this.page)
       }).then(res=>{
+        //拿到后端分页数据
         this.tableData=res.data.data.records;
+        //拿到后端数据总条数
         this.page.total=parseInt(res.data.data.total);
-      })
-    },
+      }),
     handleCurrentChange(val) {
       this.page.currentPage=val;
       console.log(`当前页: ${val}`);
       axios({
          url:'/dp/goods/query',
+         //后端需要post方式请求
          method:"post",
-         //需要想办法传入page对象
+         //上传page参数,让后端进行分页,将对象转为json格式
          data:JSON.stringify(this.page),
-         headers: {
-          "Content-Type": "application/JSON",
-        },
       }).then(res=>{
         this.tableData=res.data.data.records; 
       }).catch(err=>{
-         console.log(JSON.stringify(this.page));
+        this.$alert(err.response.data.msg, '请联系管理员!', {
+          confirmButtonText: '确定',
+          callback: action => {   
+          }
+        });
       })
-    },
+      }  
   },
+  //创建之前,钩子函数,此时data已初始化,可以使用数据模型page
   created()  {
     console.log(this.page)
     axios({
         url:'/dp/goods/query',
+        //后端需要post方式请求
         method:"post",
-            //需要想办法传入page对象
+           //上传page参数,让后端进行分页,将对象转为json格式
          data:JSON.stringify(this.page),
-        headers: {
-          "Content-Type": "application/JSON",
-        },
-
     }).then(res=>{
         this.tableData=res.data.data.records;
         this.page.total=parseInt(res.data.data.total);
         console.log(this.page.total)
-    }).catch(err=>{
-
     })
   },
-};
+  }
+  }
 </script>
 <style lang="less" >
 .check {
