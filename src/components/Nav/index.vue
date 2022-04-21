@@ -20,26 +20,27 @@
                   物流管理
                 </h1></template
               >
-              <el-submenu index="1-1">
-                <template slot="title">入库</template>
-                <el-menu-item index="1-1-1">入库员</el-menu-item>
-                <el-menu-item index="1-1-2">入库核验员</el-menu-item>
-              </el-submenu>
-              <el-submenu index="1-2">
-                <template slot="title">出库</template>
-                <el-menu-item index="1-2-1">出库员</el-menu-item>
-                <el-menu-item index="1-2-2">出库核验员</el-menu-item>
-              </el-submenu>
-            </el-submenu>
-            <el-submenu index="2">
-              <template slot="title"
+                <el-submenu index="1-1">
+                   <template slot="title">入库</template>
+                   <el-menu-item index="1-1-1">入库员</el-menu-item>
+                   <el-menu-item index="1-1-2">入库核验员</el-menu-item>
+                </el-submenu>
+                <el-submenu index="1-2">
+                   <template slot="title">出库</template>
+                   <el-menu-item index="1-2-1">出库员</el-menu-item>
+                   <el-menu-item index="1-2-2">出库核验员</el-menu-item>
+               </el-submenu>
+             </el-submenu>
+             <el-submenu index="2">
+               <template slot="title"
                 ><h1 style="margin: 0px 25px 0px 0px; width: 150px">
                   货物管理
                 </h1></template
               >
-              <el-menu-item index="2-1" @click="check">查看</el-menu-item>
-              <el-menu-item index="2-2" @click="update">更新</el-menu-item>
-            </el-submenu>
+                 <el-menu-item index="2-1" @click="check">查看</el-menu-item>
+                 <el-menu-item index="2-2" @click="modify">修改</el-menu-item>
+                 <el-menu-item index="2-3" @click="remove">删除</el-menu-item>
+             </el-submenu>
             <el-submenu index="3">
               <template slot="title"
                 ><h1 style="margin: 0px 25px 0px 0px; width: 150px">
@@ -65,10 +66,10 @@
                   员工管理
                 </h1></template
               >
-              <el-menu-item index="4-1">查看</el-menu-item>
-              <el-menu-item index="4-2">修改</el-menu-item>
-              <el-menu-item index="4-3">删除</el-menu-item>
-              <el-menu-item index="4-3">新增</el-menu-item>
+              <el-menu-item index="4-1" @click="check2">查看</el-menu-item>
+              <el-menu-item index="4-2" @click="modify2">修改</el-menu-item>
+              <el-menu-item index="4-3" @click="remove2">删除</el-menu-item>
+              <el-menu-item index="4-4" @click="add2">新增</el-menu-item>
             </el-submenu>
             <el-submenu index="5">
               <template slot="title"
@@ -84,6 +85,7 @@
         </nav>
     </div>
  </div>
+   
 </template>
 
 <script>
@@ -106,8 +108,23 @@ export default {
     check() {
       this.$router.push({ path: "/check" });
     },
-    update() {
-      this.$router.push({ path: "/update" });
+    modify() {
+       this.$router.push({ path: "/modify" });
+    },
+    remove() {
+       this.$router.push({ path: "/remove" });
+     },
+     check2() {
+      this.$router.push({ path: "/check2" });
+    },
+    modify2() {
+      this.$router.push({ path: "/modify2" });
+    },
+    remove2() {
+      this.$router.push({ path: "/remove2" });
+    },
+    add2() {
+      this.$router.push({ path: "/add2" });
     },
   },
 };

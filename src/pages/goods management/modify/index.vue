@@ -1,19 +1,5 @@
 <template>
-<div class="check" style="background-color: #ffffff"> 
-    <div class="searchArea">
-        <form action="###" class="searchForm">
-          <input
-            type="text"
-          />
-          <button
-            class="sui-btn btn-xlarge btn-danger"
-            type="button"
-            @click="goSearch"
-          >
-            搜索
-          </button>
-        </form>
-    </div>
+  <div class="check" style="background-color: #ffffff">
     <el-table
       class="table"
       :data="tableData"
@@ -36,15 +22,27 @@
       </el-table-column>
       <el-table-column prop="status" label="货物状态" width="120">
       </el-table-column>
+      <el-table-column fixed="right" label="操作" width="120">
+      <template slot-scope="scope">
+      <el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>
+      <el-button
+          @click.native.prevent="ModifyRow(scope.$index,scope.row)"
+          type="text"
+          size="small"
+      >
+          修改
+      </el-button>
+      </template>
+      </el-table-column>
+
     </el-table>
     <div class="block">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="page.currentPage"
-        :page-sizes="[10, 20, 30, 40,50]"
-        
-        :page-size=this.page.pageSize
+        :page-sizes="[10, 20, 30, 40]"
+        :page-size="this.page.pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="this.page.total"
       >
@@ -56,11 +54,7 @@
 <script>
 import axios from '../../../axios'
 export default {
-/*   methods: {
-    deleteRow(index, rows) {
-      rows.splice(index, 1);
-    },
-  }, */
+  name:'Modify',
   data() {
   
     return {
@@ -74,34 +68,44 @@ export default {
           currentPage:1,
         //每页条数
           pageSize:10,
-        //数据总条数
           total:'',
+
+
       },
+
+       
     }
     
     ;
   },
   methods: {
-    goSearch(){
-
+    
+  
+    ModifyRow(index, rows) {
+    console.log(index,rows);
+      //rows.splice(index, 1);
     },
-    //条数选择
     handleSizeChange(val) {
+      //条数选择
       this.page.pageSize=val;
       this.page.currentPage=1;
       axios({
         url:'/dp/goods/query',
         method:"post",
-        //上传page参数,让后端进行分页
         data:JSON.stringify(this.page)
       }).then(res=>{
-        //拿到后端分页数据
         this.tableData=res.data.data.records;
-        //拿到后端数据总条数
         this.page.total=parseInt(res.data.data.total);
+      }).catch(err=>{
+            this.$alert(err.response.data.msg, "请联系管理员", {
+              confirmButtonText: "确定",
+              callback: action => {
+                
+              }
+            });
       })
     },
-     handleCurrentChange(val) {
+    handleCurrentChange(val) {
       this.page.currentPage=val;
       console.log(`当前页: ${val}`);
       axios({
@@ -145,53 +149,12 @@ export default {
 };
 </script>
 <style lang="less" >
- 
 .check {
-  padding-top: 100px;
+  padding-top: 50px;
   width: 1120px;
-  margin: 100px auto;
+  margin: 0 auto;
   height: 700px;
   overflow: hidden;
   background-color: #f4ecec;
-    
-    .searchArea {
-      float: left;
-      margin-top: 30px;
-
-      .searchForm {
-        overflow: hidden;
-        margin-right: 0px;
-
-        input {
-          box-sizing: border-box;
-          width: 300px;
-          height: 32px;
-          padding: 0px 4px;
-          border: 2px solid rgb(8, 138, 8);
-          float: left;
-
-          &:focus {
-            outline: none;
-          }
-        }
-
-        button {
-          height: 32px;
-          width: 68px;
-          background-color: #0f778a;
-          border: none;
-          color: #fff;
-          float: left;
-          cursor: pointer;
-
-          &:focus {
-            outline: none;
-          }
-        }
-      }
-   
-    }
-       
- }
-
+}
 </style>

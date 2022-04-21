@@ -3,8 +3,12 @@ import VueRouter from 'vue-router'
 import Login from '../components/login.vue'
 import Home from '../pages/Home/home'
 import Check from '../pages/goods management/check'
-import Update from '../pages/goods management/update'
-
+import Modify from '../pages/goods management/modify'
+import Remove from '../pages/goods management/remove'
+import Check2 from '../pages/staff management/check'
+import Modify2 from '../pages/staff management/modify'
+import Remove2 from '../pages/staff management/remove'
+import Add2 from '../pages/staff management/add'
 
 Vue.use(VueRouter)
 
@@ -44,15 +48,60 @@ const routes = [
     }
   },
   {
-    path: '/update',
-    name: 'goods-update',
-    component: Update,
+    path: '/modify',
+    name: 'goods-modify',
+    component: Modify,
     meta: {
       show: true,
       view: true
     }
   },
-  
+  {
+    path: '/remove',
+    name: 'goods-remove',
+    component: Remove,
+    meta: {
+      show: true,
+      view: true
+    }
+  },
+  {
+    path: '/remove2',
+    name: 'staff-remove',
+    component: Remove2,
+    meta: {
+      show: true,
+      view: true
+    }
+  },
+  {
+    path: '/add2',
+    name: 'staff-remove',
+    component: Add2,
+    meta: {
+      show: true,
+      view: true
+    }
+  },
+  {
+    path: '/modify2',
+    name: 'staff-remove',
+    component: Modify2,
+    meta: {
+      show: true,
+      view: true
+    }
+  },
+  {
+    path: '/check2',
+    name: 'staff-remove',
+    component: Check2,
+    meta: {
+      show: true,
+      view: true
+    }
+  },
+
 
 ]
 

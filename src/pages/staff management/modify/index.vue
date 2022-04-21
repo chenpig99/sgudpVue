@@ -1,49 +1,35 @@
 <template>
   <div class="check" style="background-color: #ffffff">
-     <div style="margin-top: 20px; margin—left:600px;">
-    <el-button @click="toggleSelection()">取消选择</el-button>
-    <el-button @click="allRevome">选择</el-button>
-  </div>
-    <el-table
-    ref="multipleTable"
-    :data="tableData"
-    tooltip-effect="dark"
-    style="width: 100%"
-    @selection-change="handleSelectionChange">
-    <el-table-column
-      type="selection"
-      width="55">
-    </el-table-column>
-      <el-table-column fixed prop="id" label="货物Id" width="120">
-      </el-table-column>
-      <el-table-column prop="name" label="货物名称" width="120">
-      </el-table-column>
-      <el-table-column prop="number" label="货物数量" width="120">
-      </el-table-column>
-      <el-table-column prop="locationId" label="库区" width="120">
-      </el-table-column>
-      <el-table-column prop="warehouseEntryTime" label="入库时间" width="120">
-      </el-table-column>
-      <el-table-column prop="deadlineTime" label="存放截止时间" width="120">
-      </el-table-column>
-      <el-table-column prop="warningTime" label="距过期时间" width="120">
-      </el-table-column>
-      <el-table-column prop="status" label="货物状态" width="120">
-      </el-table-column>
-      <el-table-column fixed="right" label="操作" width="120">
-        <template slot-scope="scope">
-         <el-button @click.native.prevent="deleteRow(scope.$index, tableData)"
-          type="text" size="small"> 删除 </el-button>
+      <el-table
+         class="table"
+         :data="tableData"
+         style="width: 100%"
+         max-height="500">
+         <el-table-column fixed prop="id" label="员工Id" width="120">
+         </el-table-column>
+         <el-table-column prop="user_name" label="员工姓名" width="120">
+          </el-table-column>
+         <el-table-column prop="employee_position" label="员工职位/权限" width="120">
+         </el-table-column>
+         <el-table-column prop="employee_contact" label="联系方式" width="120">
+         </el-table-column>
+         <template slot-scope="scope">
+         <el-button type="text" @click="dialogVisible = true">点击打开 Dialog</el-button>
+          <el-button
+          @click.native.prevent="ModifyRow(scope.$index,scope.row)"
+          type="text"
+          size="small">
+          修改
+          </el-button>
         </template>
-      </el-table-column> 
-    </el-table>
-    <div class="block">
+ </el-table>
+   <div class="block">
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="page.currentPage"
         :page-sizes="[10, 20, 30, 40]"
-        :page-size=this.page.pageSize
+        :page-size="this.page.pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="this.page.total"
       >
@@ -55,54 +41,38 @@
 <script>
 import axios from '../../../axios'
 export default {
-  methods: {
-    deleteRow(index, rows) {
-      rows.splice(index, 1);
-    },
-  },
+  name:'Modify',
   data() {
   
     return {
-      tableData: [
-        {
-          //导入数据
-        },
-      ],
       page:{
         //当前页码
           currentPage:1,
         //每页条数
           pageSize:10,
           total:'',
-           checked:true,
+
 
       },
-     
+
        
     }
     
     ;
   },
   methods: {
-     toggleSelection(rows) {
-        if (rows) {
-          rows.forEach(row => {
-            this.$refs.multipleTable.toggleRowSelection(row);
-          });
-        } else {
-          this.$refs.multipleTable.clearSelection();
-        }
-      },
-      handleSelectionChange(val) {
-        this.multipleSelection = val;
-      }
+    
+  
+    ModifyRow(index, rows) {
+    console.log(index,rows);
+      //rows.splice(index, 1);
     },
-    //条数选择
     handleSizeChange(val) {
+      //条数选择
       this.page.pageSize=val;
       this.page.currentPage=1;
       axios({
-        url:'/dp/goods/query',
+        url:'',
         method:"post",
         data:JSON.stringify(this.page)
       }).then(res=>{
@@ -121,7 +91,7 @@ export default {
       this.page.currentPage=val;
       console.log(`当前页: ${val}`);
       axios({
-         url:'/dp/goods/query',
+         url:'',
          method:"post",
          //需要想办法传入page对象
          data:JSON.stringify(this.page),
@@ -136,11 +106,11 @@ export default {
          });
       })
     },
-  
+  },
   created()  {
     console.log(this.page)
     axios({
-        url:'/dp/goods/query',
+        url:'',
         method:"post",
             //需要想办法传入page对象
          data:JSON.stringify(this.page),

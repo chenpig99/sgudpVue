@@ -20,21 +20,13 @@
       style="width: 100%"
       max-height="500"
     >
-      <el-table-column fixed prop="id" label="货物Id" width="120">
+      <el-table-column fixed prop="id" label="员工Id" width="120">
       </el-table-column>
-      <el-table-column prop="name" label="货物名称" width="120">
+      <el-table-column prop="user_name" label="员工姓名" width="120">
       </el-table-column>
-      <el-table-column prop="number" label="货物数量" width="120">
+      <el-table-column prop="employee_position" label="员工职位/权限" width="120">
       </el-table-column>
-      <el-table-column prop="locationId" label="库区" width="120">
-      </el-table-column>
-      <el-table-column prop="warehouseEntryTime" label="入库时间" width="120">
-      </el-table-column>
-      <el-table-column prop="deadlineTime" label="存放截止时间" width="120">
-      </el-table-column>
-      <el-table-column prop="warningTime" label="距过期时间" width="120">
-      </el-table-column>
-      <el-table-column prop="status" label="货物状态" width="120">
+      <el-table-column prop="employee_contact" label="联系方式" width="120">
       </el-table-column>
     </el-table>
     <div class="block">
@@ -56,19 +48,9 @@
 <script>
 import axios from '../../../axios'
 export default {
-/*   methods: {
-    deleteRow(index, rows) {
-      rows.splice(index, 1);
-    },
-  }, */
   data() {
   
     return {
-      tableData: [
-        {
-          //导入数据
-        },
-      ],
       page:{
         //当前页码
           currentPage:1,
@@ -90,7 +72,7 @@ export default {
       this.page.pageSize=val;
       this.page.currentPage=1;
       axios({
-        url:'/dp/goods/query',
+        url:'',
         method:"post",
         //上传page参数,让后端进行分页
         data:JSON.stringify(this.page)
@@ -105,7 +87,7 @@ export default {
       this.page.currentPage=val;
       console.log(`当前页: ${val}`);
       axios({
-         url:'/dp/goods/query',
+         url:'',
          method:"post",
          //需要想办法传入page对象
          data:JSON.stringify(this.page),
@@ -124,7 +106,7 @@ export default {
   created()  {
     console.log(this.page)
     axios({
-        url:'/dp/goods/query',
+        url:'',
         method:"post",
             //需要想办法传入page对象
          data:JSON.stringify(this.page),

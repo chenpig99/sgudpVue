@@ -1,12 +1,11 @@
 <template>
   <div class="header">
-    <!-- 头部的第一行 -->
     <div class="top">
       <div class="container">
         <div class="typeList">
           <!-- <p v-else> -->
             <!-- <a>{{ userInfo.name }}</a> -->
-          <a class="register" @click="logout">退出登录</a></i>
+          <a class="register" @click="logout">退出登录</a>
           <el-dropdown>
             <span class="el-dropdown-link">
             <i class="el-icon-setting"></i>
