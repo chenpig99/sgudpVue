@@ -13,7 +13,7 @@
              <div class="typeList" >
               <!-- <p v-else> -->
                <!-- <a>{{ userInfo.name }}</a> -->
-              <a class="register" @click="logout">退出登录</a>
+              <!-- <a class="register" >退出登录</a> -->
              <el-dropdown>
                 <span class="el-dropdown-link">
                    <i class="el-icon-setting"></i>
@@ -25,13 +25,11 @@
              </el-dropdown>
              <el-dropdown>
                 <span class="el-dropdown-link">
-                    <i class="el-icon-user"></i>
+                    <i class="el-icon-user">{{userName}}</i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>用户名：
-                <!-- <p v-else> -->
-                <!-- <a>{{ userInfo.name }}</a> --></el-dropdown-item>
-                <el-dropdown-item>账号：</el-dropdown-item>
+                  <!-- @click.native修饰符表示原生的点击事件 -->
+                <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
                 </el-dropdown-menu>
              </el-dropdown>
             </div>
@@ -53,10 +51,18 @@ export default {
   name: "Footer",
   data() {
     return {
-      //收集表单数据---关键字的
-      keyword: "",
+    userName:localStorage.currentUser_name
     };
   },
+  methods:{
+    logout(){
+    localStorage.removeItem('token'),
+    localStorage.removeItem('currentUser_name'),
+    localStorage.removeItem('Authorization'),
+   
+      this.$router.push('/login')
+    }
+  }
 };
 </script>
 

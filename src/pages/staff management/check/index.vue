@@ -15,7 +15,7 @@
         </form>
     </div>
     <el-table
-      class="table"
+      class="table2"
       :data="tableData"
       style="width: 100%"
       max-height="500"
@@ -72,7 +72,7 @@ export default {
       this.page.pageSize=val;
       this.page.currentPage=1;
       axios({
-        url:'',
+        url:'/dp/goods/query',
         method:"post",
         //上传page参数,让后端进行分页
         data:JSON.stringify(this.page)
@@ -87,7 +87,7 @@ export default {
       this.page.currentPage=val;
       console.log(`当前页: ${val}`);
       axios({
-         url:'',
+         url:'/dp/goods/query',
          method:"post",
          //需要想办法传入page对象
          data:JSON.stringify(this.page),
@@ -106,7 +106,7 @@ export default {
   created()  {
     console.log(this.page)
     axios({
-        url:'',
+        url:'/dp/goods/query',
         method:"post",
             //需要想办法传入page对象
          data:JSON.stringify(this.page),
@@ -173,6 +173,9 @@ export default {
       }
    
     }
+     .table2{
+           width: 550px!important;
+       }
        
  }
 

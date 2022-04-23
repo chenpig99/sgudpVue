@@ -1,9 +1,11 @@
 <template>
 <div class="check" style="background-color: #ffffff"> 
     <div class="searchArea">
-        <form action="###" class="searchForm">
+        <form action="###" class="searchForm" >
           <input
             type="text"
+            placeholder="输入关键词"
+            v-model="keywords"
           />
           <button
             class="sui-btn btn-xlarge btn-danger"
@@ -15,7 +17,7 @@
         </form>
     </div>
     <el-table
-      class="table"
+      class="table1"
       :data="tableData"
       style="width: 100%"
       max-height="500"
@@ -56,19 +58,14 @@
 <script>
 import axios from '../../../axios'
 export default {
-/*   methods: {
-    deleteRow(index, rows) {
-      rows.splice(index, 1);
-    },
-  }, */
   data() {
-  
     return {
       tableData: [
         {
           //导入数据
         },
       ],
+      keywords:'',
       page:{
         //当前页码
           currentPage:1,
@@ -83,7 +80,8 @@ export default {
   },
   methods: {
     goSearch(){
-
+     if(this.keywords.trim()=='') return;
+     console.log(this.keywords);
     },
     //条数选择
     handleSizeChange(val) {
@@ -155,12 +153,13 @@ export default {
   background-color: #f4ecec;
     
     .searchArea {
-      float: left;
+      float:left;
       margin-top: 30px;
+      margin-right: 700px;
 
       .searchForm {
         overflow: hidden;
-        margin-right: 0px;
+        
 
         input {
           box-sizing: border-box;
@@ -190,7 +189,11 @@ export default {
         }
       }
    
+   
     }
+    .table1{
+     width: 1000px!important;
+   }
        
  }
 
