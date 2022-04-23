@@ -67,9 +67,9 @@
                 </h1></template
               >
               <el-menu-item index="4-1" @click="check2">查看</el-menu-item>
-              <el-menu-item index="4-2" @click="modify2">修改</el-menu-item>
-              <el-menu-item index="4-3" @click="remove2">删除</el-menu-item>
-              <el-menu-item index="4-4" @click="add2">新增</el-menu-item>
+               <el-menu-item index="4-2" @click="modify2">修改</el-menu-item> 
+               <el-menu-item index="4-3" @click="remove2">删除</el-menu-item> 
+              <el-menu-item index="4-4" @click="handle2">处理</el-menu-item>
             </el-submenu>
             <el-submenu index="5">
               <template slot="title"
@@ -117,7 +117,7 @@ export default {
      check2() {
       this.$router.push({ path: "/check2" });
     },
-    modify2() {
+ modify2() {
       this.$router.push({ path: "/modify2" });
     },
     remove2() {
@@ -125,6 +125,9 @@ export default {
     },
     add2() {
       this.$router.push({ path: "/add2" });
+    }, 
+    handle2() {
+      this.$router.push({ path: "/handle2" });
     },
   },
 };

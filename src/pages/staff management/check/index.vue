@@ -4,6 +4,8 @@
         <form action="###" class="searchForm">
           <input
             type="text"
+            placeholder="输入关键词"
+            v-model="keywords"
           />
           <button
             class="sui-btn btn-xlarge btn-danger"
@@ -51,6 +53,7 @@ export default {
   data() {
   
     return {
+      keywords:'',
       page:{
         //当前页码
           currentPage:1,

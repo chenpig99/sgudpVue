@@ -9,6 +9,7 @@ import Check2 from '../pages/staff management/check'
 import Modify2 from '../pages/staff management/modify'
 import Remove2 from '../pages/staff management/remove'
 import Add2 from '../pages/staff management/add'
+import Handle2 from '../pages/staff management/handle'
 
 Vue.use(VueRouter)
 
@@ -99,7 +100,16 @@ const routes = [
     meta: {
       show: true,
       view: true
-    }
+    },
+  },
+    {
+      path: '/handle2',
+      name: 'staff-remove',
+      component: Handle2,
+      meta: {
+        show: true,
+        view: true
+      }
   },
 
 

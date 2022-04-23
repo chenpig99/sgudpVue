@@ -5,7 +5,10 @@
     <el-button @click="allRemove">删除</el-button>
   </div>
     <el-table
-      :data="tableData"
+     ref="multipleTable"
+    :data="tableData"
+    tooltip-effect="dark"
+    @selection-change="handleSelectionChange"
       style="width: 100%"
       max-height="500"
     >
