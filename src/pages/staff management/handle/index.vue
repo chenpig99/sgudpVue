@@ -53,7 +53,7 @@
       type="selection"
       width="55">
       </el-table-column>
-     <el-table-column fixed prop="id" label="员工Id" width="120">
+     <el-table-column fixed prop="id" label="员工Id" width="150">
         <template slot-scope="scope">
           <div v-if="scope.row.id==inputHandle.id">
             <span v-if="modifyFlag">{{scope.row.id}}</span>
@@ -62,7 +62,7 @@
           <span v-else>{{scope.row.id}}</span>
         </template> 
       </el-table-column>
-      <el-table-column prop="user_name" label="员工姓名" width="120">
+      <el-table-column prop="user_name" label="员工姓名" width="150">
         <template slot-scope="scope">
           <div v-if="scope.row.id==inputHandle.id">
             <span v-if="modifyFlag">{{scope.row.user_name}}</span>
@@ -71,7 +71,7 @@
           <span v-else>{{scope.row.user_name}}</span>
         </template> 
       </el-table-column>
-      <el-table-column prop="employee_position" label="员工职位/权限" width="120">
+      <el-table-column prop="employee_position" label="员工职位/权限" width="150">
       <template slot-scope="scope">
           <div v-if="scope.row.id==inputHandle.id">
             <span v-if="modifyFlag">{{scope.row.employee_position}}</span>
@@ -80,7 +80,7 @@
           <span v-else>{{scope.row.employee_position}}</span>
         </template> 
       </el-table-column>
-      <el-table-column prop="employee_contact" label="联系方式" width="120">
+      <el-table-column prop="employee_contact" label="联系方式" width="150">
         <template slot-scope="scope">
           <div v-if="scope.row.id==inputHandle.id">
             <span v-if="modifyFlag">{{scope.row.employee_contact}}</span>
@@ -89,7 +89,7 @@
           <span v-else>{{scope.row.employee_contact}}</span>
         </template> 
       </el-table-column>
-       <el-table-column label="操作" width="120">
+       <el-table-column label="操作" width="150">
           <template slot-scope="scope">
             <template v-if="scope.row.id==inputHandle.id">
               <el-button
@@ -322,79 +322,11 @@ export default {
             outline: none;
           }
         }}}
-      
-  
- 
-   
 
-    /* .searchArea{
-        
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        width: 1120px;
-        height: 100px;
-        background-color: pink;
-        .search{
-           
-        left: 0;
-            width: 699px;
-            height: 50px;
-            background-color: blue;
-            .searchForm {
-        overflow: hidden;
-        margin-right: 0px;
-        
-
-        input {
-          box-sizing: border-box;
-          width: 300px;
-          height: 32px;
-          padding: 0px 4px;
-          border: 2px solid rgb(8, 138, 8);
-          float: left;
-
-          &:focus {
-            outline: none;
-          }
-        }
-
-        button {
-          height: 32px;
-          width: 68px;
-          background-color: #0f778a;
-          border: none;
-          color: #fff;
-          float: left;
-          cursor: pointer;
-
-          &:focus {
-            outline: none;
-          }
-        }
-            }
-        }
-        .selection{
-           flex: 1;
-            width: 300px;
-            height: 50px;
-            background-color: skyblue;
-        } 
-        
-        .add {
-              
-      width: 300px;
-            background-color: purple;
-        }
-    } */
     .table2{
-           width: 700px!important;
+           width: 800px!important;
        }
-       
-     
-       
- 
+
  }
 
 </style>

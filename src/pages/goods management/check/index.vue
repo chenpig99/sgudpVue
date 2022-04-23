@@ -145,7 +145,6 @@ export default {
 <style lang="less" >
  
 .check {
-  padding-top: 100px;
   width: 1120px;
   margin: 100px auto;
   height: 700px;
@@ -195,6 +194,6 @@ export default {
      width: 1000px!important;
    }
        
- }
+}
 
 </style>

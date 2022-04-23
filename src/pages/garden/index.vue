@@ -1,10 +1,11 @@
-<template>
+ <template>
   <div class="check" style="background-color: #ffffff">
-    <div style="margin-top: 20px;float:right;">
+    <div style="margin-top: 20px;margin-right:300px;">
     <el-button @click="toggleSelection()">取消选择</el-button>
     <el-button @click="allRemove">删除</el-button>
   </div>
     <el-table
+    class="table"
      ref="multipleTable"
     :data="tableData"
     tooltip-effect="dark"
@@ -12,29 +13,84 @@
       style="width: 100%"
       max-height="500"
     >
-     <el-table-column
+        <el-table-column
       type="selection"
-      width="35">
+      width="55">
       </el-table-column>
-      <el-table-column fixed prop="id" label="货物Id" width="100">
+      <el-table-column fixed prop="warehouse_id" label="仓库名" width="120">
+        <template slot-scope="scope">
+          <div v-if="scope.row.id==inputHandle.id">
+            <span v-if="modifyFlag">{{scope.row.warehouse_id}}</span>
+            <el-input v-model="scope.row.warehouse_id" v-else value="number"></el-input>
+          </div>
+          <span v-else>{{scope.row.warehouse_id}}</span>
+        </template> 
       </el-table-column>
-      <el-table-column prop="name" label="货物名称" width="120">
+      <el-table-column prop="warehouse_tem" label="仓库温度(℃)" width="120">
+        <template slot-scope="scope">
+          <div v-if="scope.row.id==inputHandle.id">
+            <span v-if="modifyFlag">{{scope.row.warehouse_tem}}</span>
+            <el-input v-model="scope.row.warehouse_tem" v-else value="number"></el-input>
+          </div>
+          <span v-else>{{scope.row.warehouse_tem}}</span>
+        </template> 
       </el-table-column>
-      <el-table-column prop="number" label="货物数量" width="100">
-      </el-table-column>
-      <el-table-column prop="locationId" label="库区" width="100">
-      </el-table-column>
-      <el-table-column prop="warehouseEntryTime" label="入库时间" width="120">
-      </el-table-column>
-      <el-table-column prop="deadlineTime" label="存放截止时间" width="160">
-      </el-table-column>
-      <el-table-column prop="warningTime" label="距过期时间" width="120">
-      </el-table-column>
-      <el-table-column prop="status" label="货物状态" width="120">
-      </el-table-column>
-      <el-table-column fixed="right" label="操作" width="120">
+      <el-table-column prop="warehouse_all" label="总存量" width="120">
       <template slot-scope="scope">
-        <el-button
+          <div v-if="scope.row.id==inputHandle.id">
+            <span v-if="modifyFlag">{{scope.row.warehouse_all}}</span>
+            <el-input v-model="scope.row.warehouse_all" v-else value="number"></el-input>
+          </div>
+          <span v-else>{{scope.row.warehouse_all}}</span>
+        </template> 
+      </el-table-column>
+      <el-table-column prop="warehouse_already" label="已存量" width="120">
+        <template slot-scope="scope">
+          <div v-if="scope.row.id==inputHandle.id">
+            <span v-if="modifyFlag">{{scope.row.warehouse_already}}</span>
+            <el-input v-model="scope.row.warehouse_already" v-else value="number"></el-input>
+          </div>
+          <span v-else>{{scope.row.warehouse_already}}</span>
+        </template> 
+      </el-table-column>
+      <el-table-column prop="warehouse_can" label="可存量" width="120">
+        <template slot-scope="scope">
+          <div v-if="scope.row.id==inputHandle.id">
+            <span v-if="modifyFlag">{{scope.row.warehouse_can}}</span>
+            <el-input v-model="scope.row.warehouse_can" v-else value="number"></el-input>
+          </div>
+          <span v-else>{{scope.row.warehouse_can}}</span>
+        </template> 
+      </el-table-column>
+      <el-table-column label="操作" width="120">
+      <template slot-scope="scope">\
+        <template v-if="scope.row.id==inputHandle.id">
+              <el-button
+             @click="ModifyRow(scope.row)"
+              v-if="modifyFlag"
+              type="text"
+              size="small"
+        >
+          修改
+      </el-button> 
+      <el-button
+          @click="save(scope.row)"
+          v-else
+          type="text"
+          size="small"
+      >
+          保存
+      </el-button> 
+        </template>
+        <template v-else>
+           <el-button
+             @click="ModifyRow(scope.row)"
+              type="text"
+              size="small">
+             修改
+          </el-button> 
+        </template>
+         <el-button
           @click="RemoveRow(scope.row)"
           type="text"
           size="small"
@@ -43,9 +99,8 @@
       </el-button>
       </template>
       </el-table-column>
-
     </el-table>
-    <div class="block">
+    <div class="block" >
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -61,9 +116,9 @@
 </template>
 
 <script>
-import axios from '../../../axios'
+import axios from '../../axios'
 export default {
-  name:'Modify',
+  
   data() {
   
     return {
@@ -81,14 +136,21 @@ export default {
     }
   }, 
   methods: {
-    //多选框删除
+    name:'garden',
+    save(row){
+      //保存的修改
+      console.log(row);
+      this.$message.success('保存成功'),
+       this.modifyFlag=!this.modifyFlag
+    },
+    ModifyRow(row) {
+      this.modifyFlag=!this.modifyFlag,
+      this.inputHandle = row
+    },
+    //条数选择
     allRemove(){
 
     },
-    //单行删除
-    RemovRow(index, rows) {
-        rows.splice(index, 1);
-      },
     toggleSelection(rows) {
         if (rows) {
           rows.forEach(row => {
@@ -166,11 +228,14 @@ export default {
 </script>
 <style lang="less" >
 .check {
-
+  padding-top: 50px;
   width: 1120px;
   margin: 0 auto;
   height: 700px;
   overflow: hidden;
   background-color: #f4ecec;
+  .table{
+     width: 650px!important;
+  }
 }
 </style>

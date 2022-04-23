@@ -22,13 +22,13 @@
               >
                 <el-submenu index="1-1">
                    <template slot="title">入库</template>
-                   <el-menu-item index="1-1-1">入库员</el-menu-item>
-                   <el-menu-item index="1-1-2">入库核验员</el-menu-item>
+                   <el-menu-item index="1-1-1" @click="Input">入库员</el-menu-item>
+                   <el-menu-item index="1-1-2" @click="inputCheck">入库核验员</el-menu-item>
                 </el-submenu>
                 <el-submenu index="1-2">
                    <template slot="title">出库</template>
-                   <el-menu-item index="1-2-1">出库员</el-menu-item>
-                   <el-menu-item index="1-2-2">出库核验员</el-menu-item>
+                   <el-menu-item index="1-2-1" @click="output">出库员</el-menu-item>
+                   <el-menu-item index="1-2-2" @click="outputCheck">出库核验员</el-menu-item>
                </el-submenu>
              </el-submenu>
              <el-submenu index="2">
@@ -49,15 +49,17 @@
               >
               <el-submenu index="3-1">
                 <template slot="title">仓库</template>
-                <el-menu-item index="3-1-1">选项1</el-menu-item>
-                <el-menu-item index="3-1-2">选项2</el-menu-item>
-                <el-menu-item index="3-1-3">选项3</el-menu-item>
+                <el-menu-item index="3-1-1" @click="check">肉类</el-menu-item>
+                <el-menu-item index="3-1-2" @click="pro">加工食品类</el-menu-item>
+                <el-menu-item index="3-1-3" @click="gar">果蔬类</el-menu-item>
+                <el-menu-item index="3-1-4" @click="chi">蛋类</el-menu-item>
               </el-submenu>
               <el-submenu index="3-2">
                 <template slot="title">卫生</template>
-                <el-menu-item index="3-2-1">选项1</el-menu-item>
-                <el-menu-item index="3-2-2">选项2</el-menu-item>
-                <el-menu-item index="3-2-3">选项3</el-menu-item>
+                <el-menu-item index="3-2-1" @click="huan">肉类</el-menu-item>
+                <el-menu-item index="3-2-2" @click="jiagong">加工食品类</el-menu-item>
+                <el-menu-item index="3-2-3" @click="guoshu">果蔬类</el-menu-item>
+                <el-menu-item index="3-2-4" @click="egg">蛋类</el-menu-item>
               </el-submenu>
             </el-submenu>
             <el-submenu index="4">
@@ -67,8 +69,6 @@
                 </h1></template
               >
               <el-menu-item index="4-1" @click="check2">查看</el-menu-item>
-               <el-menu-item index="4-2" @click="modify2">修改</el-menu-item> 
-               <el-menu-item index="4-3" @click="remove2">删除</el-menu-item> 
               <el-menu-item index="4-4" @click="handle2">处理</el-menu-item>
             </el-submenu>
             <el-submenu index="5">
@@ -77,8 +77,8 @@
                   技术管理
                 </h1></template
               >
-              <el-menu-item index="5-1">备份数据</el-menu-item>
-              <el-menu-item index="5-2">恢复数据</el-menu-item>
+              <el-menu-item index="5-1" @click="backup">备份数据</el-menu-item>
+              <el-menu-item index="5-2" @click="recover">恢复数据</el-menu-item>
               <el-menu-item index="5-3">系统维护</el-menu-item>
             </el-submenu>
           </el-menu>
@@ -89,10 +89,6 @@
 </template>
 
 <script>
-//按需引入：只是把需要的功能引入进来
-// import throttle from "lodash/throttle";
-//vuex辅助函数mapState获取仓库数据
-// import { mapState } from "vuex";
 export default {
   name: "Nav",
   data() {
@@ -117,17 +113,47 @@ export default {
      check2() {
       this.$router.push({ path: "/check2" });
     },
- modify2() {
-      this.$router.push({ path: "/modify2" });
-    },
-    remove2() {
-      this.$router.push({ path: "/remove2" });
-    },
-    add2() {
-      this.$router.push({ path: "/add2" });
-    }, 
     handle2() {
       this.$router.push({ path: "/handle2" });
+    },
+    Input(){
+       this.$router.push("/firstInput");
+    },
+    inputCheck(){
+      this.$router.push("/totalCheck");
+    },
+     output(){
+      this.$router.push("/output");
+    },
+      outputCheck(){
+      this.$router.push("/outputCheck");
+    },
+     backup(){
+      this.$router.push("/backup");
+    },
+     recover(){
+      this.$router.push("/recover");
+    },
+    huan(){
+      this.$router.push("/huanjing");
+    },
+    jiagong(){
+      this.$router.push("/jiagong");
+    },
+    guoshu(){
+      this.$router.push("/vegetable");
+    },
+    egg(){
+      this.$router.push("/henapple");
+    },
+    pro(){
+      this.$router.push("/process");
+    },
+    gar(){
+      this.$router.push("/garden");
+    },
+    chi(){
+      this.$router.push("/chicken");
     },
   },
 };

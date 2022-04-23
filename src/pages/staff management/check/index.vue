@@ -17,18 +17,18 @@
         </form>
     </div>
     <el-table
-      class="table2"
+      class="table3"
       :data="tableData"
       style="width: 100%"
       max-height="500"
     >
-      <el-table-column fixed prop="id" label="员工Id" width="120">
+      <el-table-column fixed prop="id" label="员工Id" width="150">
       </el-table-column>
-      <el-table-column prop="user_name" label="员工姓名" width="120">
+      <el-table-column prop="user_name" label="员工姓名" width="150">
       </el-table-column>
-      <el-table-column prop="employee_position" label="员工职位/权限" width="120">
+      <el-table-column prop="employee_position" label="员工职位/权限" width="150">
       </el-table-column>
-      <el-table-column prop="employee_contact" label="联系方式" width="120">
+      <el-table-column prop="employee_contact" label="联系方式" width="150">
       </el-table-column>
     </el-table>
     <div class="block">
@@ -132,7 +132,7 @@ export default {
 <style lang="less" >
  
 .check {
-  padding-top: 100px;
+  padding-top: 50px;
   width: 1120px;
   margin: 100px auto;
   height: 700px;
@@ -176,8 +176,8 @@ export default {
       }
    
     }
-     .table2{
-           width: 550px!important;
+     .table3{
+           width: 650px!important;
        }
        
  }
